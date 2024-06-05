@@ -7,7 +7,6 @@ WORKDIR /app
 
 # Install dependencies
 COPY package*.json ./
-COPY yarn.lock ./
 RUN yarn install
 
 # Runtime image
