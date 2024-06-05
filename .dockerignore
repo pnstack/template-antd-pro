@@ -1,0 +1,12 @@
+.vscode/
+node_modules/
+npm-debug.log
+dist/
+graphql/
+test/
+log/
+.umi/
+
+# umi
+**/.umi
+**/.umi-production
