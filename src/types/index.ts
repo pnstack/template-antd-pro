@@ -1,3 +1,5 @@
+import { IconSetName } from '@/components/Icon';
+
 /**
  * @name RouteConfig
  * @description Configuration for Umi routes. Only supports path, component, routes, redirect, wrappers, name, and icon.
@@ -37,5 +39,12 @@ export interface RouteConfig {
   /**
    * @description Configuration for the route icon. Refer to https://ant.design/components/icon-cn. Remove style suffixes and adjust case as needed. For example, for <StepBackwardOutlined />, use stepBackward or StepBackward; for <UserOutlined />, use user or User.
    */
-  icon?: string;
+  icon?: IconSetName<'default'>;
+  layout?: boolean;
+  hideInMenu?: boolean;
+  access?: string;
+}
+
+export interface ModuleConfig extends RouteConfig {
+  name: string;
 }

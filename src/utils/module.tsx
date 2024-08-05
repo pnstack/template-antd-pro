@@ -1,5 +1,7 @@
-import { RouteConfig } from '@/types';
 import { isArray } from 'lodash';
+
+import { ModuleConfig, RouteConfig } from '@/types';
+
 
 export const mapRoutesComponent: any = (routes: RouteConfig[], name: string) => {
   return routes.map((route: RouteConfig) => {
@@ -9,9 +11,10 @@ export const mapRoutesComponent: any = (routes: RouteConfig[], name: string) => 
         routes: mapRoutesComponent(route.routes, name),
       };
     }
+
     return {
       ...route,
-      component: `./../modules/${name}/pages/${route.component}`,
+      component: `./../pages/${name}/pages/${route.component}`,
     };
   });
 };
@@ -23,14 +26,18 @@ export class AppModule {
     this.routes = routes;
   }
 
-  register(module) {
+  register(module: ModuleConfig) {
     this.modules.push(module);
   }
 
   getRoutes() {
-    const modulesRoutes = this.modules.map((module) =>
-      mapRoutesComponent(module.routes, module.config.name),
-    );
+    const modulesRoutes = this.modules.map((module) => {
+      const route: RouteConfig = {
+        ...module,
+        routes: mapRoutesComponent(module.routes, module.name),
+      };
+      return route;
+    });
     // flat and join all routes
     return this.routes.concat(modulesRoutes.flat(Infinity));
   }
